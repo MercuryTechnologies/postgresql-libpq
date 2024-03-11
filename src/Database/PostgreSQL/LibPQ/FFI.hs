@@ -177,7 +177,8 @@ foreign import capi        "hs-libpq.h PQisnonblocking"
 foreign import capi        "hs-libpq.h PQsetSingleRowMode"
     c_PQsetSingleRowMode :: Ptr PGconn -> IO CInt
 
-foreign import capi        "hs-libpq.h PQgetResult"
+-- This unsafe call is needed for preventing unbounded open ports.
+foreign import capi unsafe "hs-libpq.h PQgetResult"
     c_PQgetResult :: Ptr PGconn -> IO (Ptr PGresult)
 
 foreign import capi        "hs-libpq.h PQexec"
